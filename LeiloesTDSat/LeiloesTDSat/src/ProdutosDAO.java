@@ -42,7 +42,28 @@ public class ProdutosDAO {
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
+        ArrayList <ProdutosDTO> produtos = new ArrayList<>();
         
+        try {
+            conn = new conectaDAO().connectDB();
+            String sql = "SELECT id, nome, valor, status FROM produtos";
+            
+            prep = this.conn.prepareStatement(sql);
+            ResultSet rs = prep.executeQuery();
+            
+            while (rs.next()){
+                ProdutosDTO p = new ProdutosDTO();
+                p.setId(Integer.valueOf("id"));
+                p.setNome("nome");
+                p.setValor(Integer.valueOf("valor"));
+                p.setStatus("status");
+                
+                produtos.add(p);
+            }
+           
+        } catch (SQLException e){
+            System.err.println("Erro ao listar produtos");
+        }
         return listagem;
     }
     
